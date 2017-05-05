@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ge.current.ie.spark.broadcast.BroadcastManagerTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.993 sec - in com.ge.current.ie.spark.broadcast.BroadcastManagerTest
