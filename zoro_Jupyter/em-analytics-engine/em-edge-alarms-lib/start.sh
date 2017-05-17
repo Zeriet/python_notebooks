@@ -1,1 +1,0 @@
-dse spark-submit --master local --class "com.ge.current.ie.analytics.SparkMain" em-edge-alarms-1.0.0.jar --spring.profiles.active=daintree-local EMEdgeAlarmsSparkStream true AMQP
