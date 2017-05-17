@@ -1,0 +1,19 @@
+.DS_Store
+/target/
+
+# Ignoring all top-leveled compiled items.
+## Avoiding a /** glob in the case a package is named "target"
+/*/target
+
+# IDEA-related ignorables
+.idea
+
+# Eclipse-related ignorables
+.settings/
+.classpath
+.metadata
+.project
+
+# Log files are generated in a build directory for some reason?
+/build/
+/*/build/

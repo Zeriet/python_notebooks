@@ -1,0 +1,49 @@
+#15mins
+0,15,30,45 * * * * /home/212565238/rules/run_dir/cron_scripts/start-rules-batch-proving-fan.sh > /home/212565238/rules/run_dir/cron_scripts/logs/start-rules-batch-proving-fan.txt 2>&1
+
+#hourly
+0 * * * * /home/212565238/rules/run_dir/cron_scripts/start-rules-batch-too-hot-cold-threshold.sh > /home/212565238/rules/run_dir/cron_scripts/logs/too-hot-cold-threshold.txt 2>&1
+
+0 * * * * /home/212565238/rules/run_dir/cron_scripts/heating-cooling-not-working.sh > /home/212565238/rules/run_dir/cron_scripts/logs/heating-cooling-not-working.txt 2>&1
+
+0 * * * * /home/212565238/rules/run_dir/cron_scripts/start-rules-batch-too-hot-cold-setpoint.sh > /home/212565238/rules/run_dir/cron_scripts/logs/start-rules-batch-too-hot-cold-setpoint.txt 2>&1
+
+0 * * * * /home/212565238/rules/run_dir/cron_scripts/heating-cooling-not-working.sh > /home/212565238/rules/run_dir/cron_scripts/logs/heating-cooling-not-working.txt 2>&1
+
+
+#Daily
+
+#PST
+0 15 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 15 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 15 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 15 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 15 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+
+#CST
+0 14 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 14 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 14 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 14 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 14 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+
+#EST
+0 13 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 13 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 13 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 13 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1
+
+0 13 * * * /home/212565238/rules/run_dir/cron_scripts/excessiveHVACOverrideCount.sh > /home/212565238/rules/run_dir/cron_scripts/logs/excessiveHVACOverrideCount.txt 2>&1

@@ -1,0 +1,48 @@
+{
+    "name" : "iepmaster",
+    "columnFamilies" : [{
+        "name" : "events_hourly",
+        "rows" : [{
+            "key" : "measures_cnt",
+            "columns" : [
+            "name" : "1110",
+                    "value" : "1110"
+            ]
+        },
+        {
+            "key" : "tags",
+            "columns" : [
+            "name" : "1110",
+                    "value" : "1110"
+            ]
+    },
+    {
+        "name" : "otherColumnFamilyName",
+        "type" : "SUPER",
+        "rows" : [{
+            "key" : "10",
+            "superColumns" : [{
+                "name" : "1100",
+                "columns" : [{
+                    "name" : "1110",
+                    "value" : "1110"
+                },
+                {
+                    "name" : "1120",
+                    "value" : "1120"
+                }]
+            },
+            {
+                "name" : "1200",
+                "columns" : [{
+                    "name" : "1210",
+                    "value" : "1210"
+                },
+                {
+                    "name" : "1220",
+                    "value" : "1220"
+                }]
+            }]
+        }]
+    }]
+}

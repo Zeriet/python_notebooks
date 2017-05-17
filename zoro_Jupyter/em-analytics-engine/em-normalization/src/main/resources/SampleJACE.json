@@ -1,0 +1,61 @@
+{
+  "edgeDeviceId": "JaceID 001",
+  "edgeDeviceType": "JACE",
+  "reportTime":"2017-04-10T15:51:00.000-08:00 America/Los_Angeles",
+  "reportingIntervalInSeconds":"300",
+  "points":[
+    {
+      "pointName":"/Drivers/BacnetNetwork/AHU$2d101/points/dischargeAirTempSensor",
+      "curValue":"70",
+      "curStatus":"OK",
+      "pointType":"Numeric",
+      "pointReadings":[
+        {"status":"OK", "value":"65", "timeStamp":"2017-04-10T15:15:08.499-08:00 America/Los_Angeles"},
+        {"status":"OK", "value":"66", "timeStamp":"2017-04-10T15:15:09.499-08:00 America/Los_Angeles"},
+        {"status":"OK", "value":"70", "timeStamp":"2017-04-10T15:15:10.499-08:00 America/Los_Angeles"},
+        {"status":"OK", "value":"68", "timeStamp":"2017-04-10T15:15:11.499-08:00 America/Los_Angeles"},
+        {"status":"OK", "value":"69", "timeStamp":"2017-04-10T15:15:12.499-08:00 America/Los_Angeles"}
+      ]
+    },
+    {
+      "pointName":"/Drivers/BacnetNetwork/AHU$2d101/points/outsideAirTempSensor",
+      "curValue":"60",
+      "curStatus":"fault, down",
+      "pointType":"Numeric",
+      "pointReadings":[
+      ]
+    },
+    {
+      "pointName":"/Drivers/BacnetNetwork/AHU$2d101/points/dischargeAirFanCmd",
+      "curValue":"false",
+      "curStatus":"OK",
+      "pointType":"Boolean",
+      "pointReadings":[
+        {"status":"OK", "value":"true", "timeStamp":"2017-04-10T15:16:00.000-08:00 America/Los_Angeles"},
+        {"status":"OK", "value":"false", "timeStamp":"2017-04-10T15:18:00.000-08:00 America/Los_Angeles"},
+        {"status":"OK", "value":"true", "timeStamp":"2017-04-10T15:19:00.000-08:00 America/Los_Angeles"},
+        {"status":"OK", "value":"false", "timeStamp":"2017-04-10T15:25:00.000-08:00 America/Los_Angeles"},
+        {"status":"OK", "value":"false", "timeStamp":"2017-04-10T15:28:00.000-08:00 America/Los_Angeles"}
+      ]
+    },
+    {
+      "pointName":"/Drivers/BacnetNetwork/VAV101/points/dischargeAirFanCmd",
+      "curValue":"true",
+      "curStatus":"OK",
+      "pointType":"Boolean",
+      "pointReadings":[
+          {"status":"Ok","value":"true","timeStamp":"2017-04-10T15:50:55.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"true","timeStamp":"2017-04-10T15:50:53.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"true","timeStamp":"2017-04-10T15:50:48.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"false","timeStamp":"2017-04-10T15:50:42.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"false","timeStamp":"2017-04-10T15:50:35.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"true","timeStamp":"2017-04-10T15:50:30.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"true","timeStamp":"2017-04-10T15:50:12.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"false","timeStamp":"2017-04-10T15:50:10.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"true","timeStamp":"2017-04-10T15:50:05.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"false","timeStamp":"2017-04-10T15:50:03.000-07:00 America/Los_Angeles"},
+          {"status":"Ok","value":"false","timeStamp":"2017-04-10T15:50:01.000-07:00 America/Los_Angeles"}
+      ]
+    }
+  ]
+}

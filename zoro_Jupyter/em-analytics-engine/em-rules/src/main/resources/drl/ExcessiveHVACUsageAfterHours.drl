@@ -1,0 +1,140 @@
+package com.ge.current.em.rules;
+
+import java.lang.Double;
+import java.lang.Math;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import com.ge.current.em.entities.analytics.*;
+import com.ge.current.em.util.TagConstants;
+import com.ge.current.em.util.GeneralUtil;
+import com.ge.current.em.util.RulesUtil
+import java.util.HashMap
+
+rule "Excessive HVAC Usage After Hours"
+dialect "java"
+no-loop true
+when
+$data : RulesBaseFact($assetId: assetId,
+$tagsMap: tagsMap,
+$segmentId: segmentId,
+$enterpriseId: enterpriseId,
+$siteId: siteId,
+$measuresAggrMap: measuresAggrMap,
+$alarmObject: alarmObject,
+$conditionMet: conditionMet,
+$parameters: parameters,
+detectFaultForExcessiveHVACUsageAfterHours($measuresAggrMap, $parameters, $alarmObject))
+then
+$alarmObject.setAssetId($assetId);
+$alarmObject.setAlertName(RulesUtil.EXCESSIVE_HVAC_USAGE_AFTER_HOURS);
+$alarmObject.setAlertType(RulesUtil.EXCESSIVE_HVAC_USAGE_AFTER_HOURS);
+$alarmObject.setCategory(RulesUtil.CATEGORY);
+$alarmObject.setFaultCategory(RulesUtil.FAULT_CATEGORY_COST);
+$data.setAlarmObject($alarmObject);
+$data.setConditionMet(true);
+GeneralUtil.log(RulesUtil.EXCESSIVE_HVAC_USAGE_AFTER_HOURS, GeneralUtil.LEVEL_INFO, "Alarm triggered.");
+end
+
+
+function boolean detectFaultForExcessiveHVACUsageAfterHours(Object measuresMapObject, Object parametersObject, Object alarmObject) {
+  boolean faultDetected = false;
+      if(measuresMapObject == null || parametersObject == null) {
+          return faultDetected;
+      }
+
+      List<Map<String, Object>> measures = (List<Map<String, Object>>) measuresMapObject;
+      Map<String, Object> parameters = (Map<String, Object>) parametersObject;
+      List<String> hvacStatusOnRuntimeTagNames = Arrays.asList(TagConstants.Tags.RTU_HEAT_STAGE_1_ON_RUNTIME.getTagName(), TagConstants.Tags.RTU_COOL_STAGE_1_ON_RUNTIME.getTagName(), TagConstants.Tags.AHU_COOL_STAGE_1_ON_RUNTIME.getTagName(), TagConstants.Tags.AHU_HEAT_STAGE_1_ON_RUNTIME.getTagName());
+      String  excessiveHVACUsageAfterHoursRuleName = RulesUtil.EXCESSIVE_HVAC_USAGE_AFTER_HOURS;
+
+      List<String> requiredTags = new ArrayList<>();
+      requiredTags.add(TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveHVACUsageAfterHoursRuleName));
+      requiredTags.addAll(hvacStatusOnRuntimeTagNames);
+
+       if(!measures.isEmpty() && !parameters.isEmpty()){
+            List<String> tagsToBeChecked = new ArrayList<>();
+            tagsToBeChecked.addAll(measures.get(0).keySet());
+            tagsToBeChecked.addAll(parameters.keySet());
+            if(!RulesUtil.areAnyTagsValid(excessiveHVACUsageAfterHoursRuleName, tagsToBeChecked, requiredTags)) {
+                GeneralUtil.log(excessiveHVACUsageAfterHoursRuleName, GeneralUtil.LEVEL_INFO, "Tags are not valid.");
+                return faultDetected;
+            }
+        } else {
+            GeneralUtil.log(excessiveHVACUsageAfterHoursRuleName, GeneralUtil.LEVEL_WARN, "One or more of these is empty: measures, tags, or parameters");
+            return faultDetected;
+        }
+
+     Object userThr = parameters.get(TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveHVACUsageAfterHoursRuleName));
+
+     if(userThr == null){
+        GeneralUtil.log(excessiveHVACUsageAfterHoursRuleName, GeneralUtil.LEVEL_INFO, "userThreshold is null");
+        return faultDetected;
+      }
+     Double userThreshold = (Double) parameters.get(TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveHVACUsageAfterHoursRuleName));
+
+     Map<String, Object> results = (Map<String, Object>) getResultExcessiveHVACUsageAfterHours(measuresMapObject, (Object) hvacStatusOnRuntimeTagNames, (Object) userThreshold);
+     faultDetected = (boolean) results.get("detectFault");
+
+     if(!faultDetected) {
+         return faultDetected;
+     }
+
+   String startAlertTime = (String) results.get("startAlert");
+   Double duration  = (Double) results.get("duration");
+   AlarmObject alarm = (AlarmObject) alarmObject;
+
+   String severityKeyName = TagConstants.Parameters.SEVERITY.getParameterName() + RulesUtil.getFDSINumber(RulesUtil.EXCESSIVE_HVAC_USAGE_AFTER_HOURS);
+   if (parameters.get(severityKeyName) != null) {
+       alarm.setSeverity((Double) parameters.get(severityKeyName));
+   }
+   alarm.setDuration(duration);
+   alarm.setTimeOfAlert(startAlertTime);
+   alarm.setFrequency(AlarmObject.FREQUENCY_DAILY);
+   alarm.setQueryTable(AlarmObject.QUERY_TABLE_BY_MINUTE);
+   alarmObject = alarm;
+   return faultDetected;
+
+  }
+
+
+/* getting the total runtime for eacht tag considered*/
+function Object getResultExcessiveHVACUsageAfterHours(Object measuresMapObject, Object hvacStatusOnRuntimeTagNames, Object threshold){
+
+    Map<String, Object> result = new HashMap<>();
+    String startAlert = null;
+    boolean detectFault = false;
+    double timeThreshold = (double) threshold;
+    List<Map<String, Object>> measures = (List<Map<String, Object>>) measuresMapObject;
+    List<String> hvacStatusOnRuntimeTags = (List<String>) hvacStatusOnRuntimeTagNames;
+    Double sumHeatAndColdStage1OnRuntime = 0.0;
+    Double duration = 0.0;
+    Double currentValue = 0.0;
+
+    for (Map<String, Object> currentMapMeasure: measures){
+        for (String currentTag: hvacStatusOnRuntimeTags){
+        if (currentMapMeasure.get(currentTag) != null){
+            currentValue =  (Double) currentMapMeasure.get(currentTag)/60;
+            sumHeatAndColdStage1OnRuntime += currentValue;
+            if (sumHeatAndColdStage1OnRuntime > timeThreshold){
+                detectFault = true;
+                duration += currentValue;
+                if(startAlert != null) {
+                	startAlert = currentMapMeasure.get(TagConstants.Measures.EVENT_TS.getMeasureName()).toString();
+                }
+             }
+          }
+        }
+    }
+
+    result.put("detectFault", detectFault);
+    result.put("startAlert", startAlert);
+    result.put("duration", duration);
+
+    GeneralUtil.log(RulesUtil.EXCESSIVE_HVAC_USAGE_AFTER_HOURS, GeneralUtil.LEVEL_INFO, "sumHeatAndColdStage1OnRuntime: " + sumHeatAndColdStage1OnRuntime + " userThreshold " + timeThreshold + "Start Alert time" + startAlert);
+    return (Object) result;
+
+}

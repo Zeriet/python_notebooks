@@ -1,0 +1,34 @@
+{
+  "gatewaySite" : {
+    "data" : {
+      "986f288f-4819-4fbd-b953-5840687325c4" : "SITE_3fe239c9-3531-478c-ada1-ec66f8252222",
+      "9f47eac5-aa70-45f0-b78a-d0ac7cb006cc" : "SITE_3fe239c9-3531-478c-ada1-ec66f8251111",
+      "Win-CCCB-9F57-782C-97D0" : "SITE_3fe239c9-3531-478c-ada1-ec66f8250000",
+      "Win-CCCB-9F57-782C-97D1" : "SITE_3fe239c9-3531-478c-ada1-ec66f8259999"
+    }
+  },
+  "siteTimeZone" : {
+    "data" : {
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8252222" : "Australia/Melbourne",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8251111" : "Australia/Melbourne",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8250000" : "America/Los_Angeles",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8259999" : "America/Los_Angeles"
+    }
+  },
+  "resourceName" : {
+    "data" : {
+       "SITE_3fe239c9-3531-478c-ada1-ec66f8252222" : "Daintree Melbourne",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8251111" : "Daintree EMS",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8250000" : "Current San Ramon",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8259999" : "Current Different Site"
+    }
+  },
+  "siteEnterprise" : {
+    "data" : {
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8252222" : "ENTERPRISE_3fe239c9-3531-478c-ada1-ec66f82516a7",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8251111" : "ENTERPRISE_3fe239c9-3531-478c-ada1-ec66f82516a7",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8250000" : "ENTERPRISE_3fe239c9-3531-478c-ada1-ec66f82516a7",
+      "SITE_3fe239c9-3531-478c-ada1-ec66f8259999" : "ENTERPRISE_3fe239c9-3531-478c-ada1-ec66f82516a7"
+    }
+  }
+}

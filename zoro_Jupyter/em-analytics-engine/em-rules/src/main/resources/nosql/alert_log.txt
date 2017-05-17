@@ -1,0 +1,45 @@
+CREATE TABLE alert_log
+(
+   time_bucket        VARCHAR  
+  ,enterprise_uid     VARCHAR
+  ,resrc_uid          VARCHAR
+  ,alert_ts           TIMESTAMP
+  ,log_uuid           TIMEUUID  
+  ,resrc_type         VARCHAR
+  ,alert_ts_loc       TIMESTAMP
+  ,alert_ts_tz        VARCHAR
+  ,alert_set          VARCHAR
+  ,alert_type         VARCHAR
+  ,alert_name         VARCHAR
+  ,alert_desc         VARCHAR
+  ,severity           VARCHAR
+  ,category           VARCHAR
+  ,scope              VARCHAR
+  ,duration           INT
+  ,status             VARCHAR
+  ,incident_cnt       INT
+  ,region_name        VARCHAR
+  ,site_city          VARCHAR
+  ,site_state         VARCHAR
+  ,site_country       VARCHAR
+  ,site_uid           VARCHAR
+  ,site_name          VARCHAR
+  ,zone_uid           VARCHAR
+  ,zone_name          VARCHAR
+  ,segment_uid        VARCHAR
+  ,segment_name       VARCHAR
+  ,segment_type       VARCHAR
+  ,asset_uid          VARCHAR
+  ,asset_type         VARCHAR
+  ,point_uid          VARCHAR
+  ,point_type         VARCHAR
+  ,labels             LIST<VARCHAR>
+  ,rule_uid           VARCHAR
+  ,owner              VARCHAR
+  ,tags               MAP<VARCHAR,VARCHAR> 
+  ,measures           MAP<VARCHAR,DOUBLE>  
+  ,ext_props           MAP<VARCHAR,VARCHAR> 
+  ,PRIMARY KEY ((time_bucket,enterprise_uid,resrc_uid),alert_ts,log_uuid)
+)
+WITH CLUSTERING ORDER BY (alert_ts DESC, log_uuid DESC)
+;

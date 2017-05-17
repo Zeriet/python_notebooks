@@ -1,0 +1,363 @@
+INSERT INTO ie_ems_ingestion_stage.events_byminute_stg (event_bucket,yyyymmdd, hhmm, resrc_type, resrc_uid, enterprise_uid, ext_props, measures_avg)
+VALUES ('America/Los_Angeles','20170307','0000','ASSET', 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a5', 'enterprise_GE',
+{'LT': 'HVAC_111222333444', 'LT2': 'HVAC', 'assetName': 'AHU_At_FirstFloor', 'asset_type': 'AHU', 'site_uid': 'Site_1'},
+{'measures_avgcurrentSensorValue': 1, 'measures_avgdischargeAirTempSensor': 70, 'measures_avgoutsideAirTempSensor': 59, 'measures_avgrtuCoolStage_on_runtime': 100, 'measures_avgrtuHeatStage1_on_runtime': 100, 'measures_avgzoneAirTempEffectiveSp': 80, 'measures_avgzoneAirTempOccCoolingSp': 68, 'measures_avgzoneAirTempSensor': 80}
+);
+
+
+INSERT INTO ie_ems_ingestion_stage.events_byminute_stg (event_bucket,yyyymmdd, hhmm, resrc_type, resrc_uid, enterprise_uid, ext_props, measures_avg)
+VALUES ('America/Los_Angeles','20170307','0015','ASSET', 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a5', 'enterprise_GE',
+{'LT': 'HVAC_111222333444', 'LT2': 'HVAC', 'assetName': 'AHU_At_FirstFloor', 'asset_type': 'AHU', 'site_uid': 'Site_1'},
+{'measures_avgcurrentSensorValue': 1, 'measures_avgdischargeAirTempSensor': 70, 'measures_avgoutsideAirTempSensor': 59, 'measures_avgrtuCoolStage_on_runtime': 100, 'measures_avgrtuHeatStage1_on_runtime': 100, 'measures_avgzoneAirTempEffectiveSp': 80, 'measures_avgzoneAirTempOccCoolingSp': 68, 'measures_avgzoneAirTempSensor': 80}
+);
+
+
+INSERT INTO ie_ems_ingestion_stage.events_byminute_stg (event_bucket,yyyymmdd, hhmm, resrc_type, resrc_uid, enterprise_uid, ext_props, measures_avg)
+VALUES ('America/Los_Angeles','20170307','0030','ASSET', 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a5', 'enterprise_GE',
+{'LT': 'HVAC_111222333444', 'LT2': 'HVAC', 'assetName': 'AHU_At_FirstFloor', 'asset_type': 'AHU', 'site_uid': 'Site_1'},
+{'measures_avgcurrentSensorValue': 1, 'measures_avgdischargeAirTempSensor': 70, 'measures_avgoutsideAirTempSensor': 59, 'measures_avgrtuCoolStage_on_runtime': 100, 'measures_avgrtuHeatStage1_on_runtime': 100, 'measures_avgzoneAirTempEffectiveSp': 80, 'measures_avgzoneAirTempOccCoolingSp': 68, 'measures_avgzoneAirTempSensor': 80}
+);
+
+
+INSERT INTO ie_ems_ingestion_stage.events_byminute_stg (event_bucket,yyyymmdd, hhmm, resrc_type, resrc_uid, enterprise_uid, ext_props, measures_avg)
+VALUES ('America/Los_Angeles','20170307','0045','ASSET', 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a5', 'enterprise_GE',
+{'LT': 'HVAC_111222333444', 'LT2': 'HVAC', 'assetName': 'AHU_At_FirstFloor', 'asset_type': 'AHU', 'site_uid': 'Site_1'},
+{'measures_avgcurrentSensorValue': 1, 'measures_avgdischargeAirTempSensor': 70, 'measures_avgoutsideAirTempSensor': 59, 'measures_avgrtuCoolStage_on_runtime': 100, 'measures_avgrtuHeatStage1_on_runtime': 100, 'measures_avgzoneAirTempEffectiveSp': 80, 'measures_avgzoneAirTempOccCoolingSp': 68, 'measures_avgzoneAirTempSensor': 80}
+);
+
+
+INSERT INTO ie_ems_ingestion_stage.events_byminute_stg (event_bucket,yyyymmdd, hhmm, resrc_type, resrc_uid, enterprise_uid, ext_props, measures_avg)
+VALUES ('America/Los_Angeles','20170307','0100','ASSET', 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a5', 'enterprise_GE',
+{'LT': 'HVAC_111222333444', 'LT2': 'HVAC', 'assetName': 'AHU_At_FirstFloor', 'asset_type': 'AHU', 'site_uid': 'Site_1'},
+{'measures_avgcurrentSensorValue': 1, 'measures_avgdischargeAirTempSensor': 70, 'measures_avgoutsideAirTempSensor': 59, 'measures_avgrtuCoolStage_on_runtime': 100, 'measures_avgrtuHeatStage1_on_runtime': 100, 'measures_avgzoneAirTempEffectiveSp': 80, 'measures_avgzoneAirTempOccCoolingSp': 68, 'measures_avgzoneAirTempSensor': 80}
+);
+
+
+
+
+America/Los_Angeles | 20170307 | 0000 |      ASSET | ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4 |              0 |  enterprise_GE | {'LT': 'HVAC_111222333444', 'LT2': 'HVAC', 'assetName': 'AHU_At_FirstFloor', 'asset_type': 'NONAHU', 'siteId': 'Site_1'} |   null |     null | {'measures_aggrahuCoolStage1_on_runtime': 68, 'measures_aggrahuHeatStage1_on_runtime': 10, 'measures_aggrcurrentSensorValue': 1, 'measures_aggrdischargeAirTempSensor': 174, 'measures_aggrhvacStateOverride_true': 40, 'measures_aggrhvacStateOverride_true_runtime': 40, 'measures_aggrindoorLightingStatus_on_runtime': 100, 'measures_aggrlightingStateOverride_true': 100, 'measures_aggroutsideAirTempSensor': 177, 'measures_aggrzoneAirTempEffectiveSp': 210, 'measures_aggrzoneAirTempOccCoolingSp': 204, 'measures_aggrzoneAirTempSensor': 204} | {'measures_avgcurrentSensorValue': 1, 'measures_avgdischargeAirTempSensor': 70, 'measures_avgoutsideAirTempSensor': 59, 'measures_avgrtuCoolStage_on_runtime': 100, 'measures_avgrtuHeatStage1_on_runtime': 100, 'measures_avgzoneAirTempEffectiveSp': 70, 'measures_avgzoneAirTempOccCoolingSp': 68, 'measures_avgzoneAirTempSensor': 70} |         null |         null |         null |        null |     null |      null |         null | Simulator site |         CA | {'tagsahuCoolStage1': 'on', 'tagsahuCoolStage2': 'on', 'tagsahuCoolStage3': 'on', 'tagsahuCoolStage4': 'on', 'tagsahuHeatStage1': 'on', 'tagsahuHeatStage2': 'on', 'tagsahuHeatStage3': 'on', 'tagsahuHeatStage4': 'on', 'tagsdischargeAirFanRunTime': '400', 'tagsdischargeAirTempSensor': '500', 'tagsheatStage1RunTime': '600', 'tagsheatStage2RunTime': '600', 'tagshvacStateOverride:true': '5', 'tagslightingStateOverride:true': '5', 'tagsrtuFanStateLastStatus': 'On'} |  null
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid, resrc_type, alert_type, alert_name,category, site_uid, enterprise_uid, duration,status,  severity, ext_props)
+VALUES ('20170226AGGREGATION',1485136800000,'201702260200',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'SITE_1234.Excessive Lighting usage', 'SITE', 'Excessive Lighting usage','Excessive Lighting Usage','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 160,'active', '4.0',
+{ 'ext_propsLT': 'LIGHTING',
+'ext_propsasset_type': 'LIGHTING',
+'ext_propsep_query2': 'SITE_1234_LIGHTING',
+'ext_propsep_query3': 'SITE_1234_Excessive Lighting usage',
+'ext_propsep_query4': 'SITE_1234_Excessive Lighting usageExcessive Lighting usage',
+'ext_propsfaultCategory': 'Cost',
+'ext_propsfrequency': '1440',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz,log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity,ext_props)
+VALUES ('20170225AGGREGATION',1485136800000,'201702250900',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_6d5d9d5c-250a-35af-9e79-a6a38d8a75a4_02.Cooling Not Working', 'ASSET', 'Cooling Not Working','Cooling Not Working','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 20,'active',
+'ASSET_6d5d9d5c-250a-35af-9e79-a6a38d8a75a4_02','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_6d5d9d5c-250a-35af-9e79-a6a38d8a75a4_02Cooling Not Working',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_Cooling Not Working',
+'ext_propsep_query4': 'SITE_1234_Cooling Not WorkingCooling Not Working',
+'ext_propsfaultCategory': 'Equipment',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz,log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',1485136800000,'201702261100',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60,'inactive',
+'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_Too hot threshold',
+'ext_propsep_query3': 'SITE_1234_Too hot thresholdToo hot threshold',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170227AGGREGATION',1485136800000,'201702270100',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_578g5-250a-35af-9e79-a6a38d8a75a4_09.Too cold threshold', 'ASSET', 'Too cold threshold','Too hot threshold','Smart', 'SITE_5678', 'ENTERPRISE_2f34', 160,'active',
+'ASSET_578g5-250a-35af-9e79-a6a38d8a75a4_09','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_5678HVACASSET_578g5-250a-35af-9e79-a6a38d8a75a4_09Too hot threshold',
+'ext_propsep_query2': 'SITE_5678_HVAC',
+'ext_propsep_query3': 'SITE_5678_Too cold threshold',
+'ext_propsep_query4': 'SITE_5678_Too cold thresholdToo cold threshold',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',1485136800000,'201702260100',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_565d9d5c-250a-35af-9e79-a6a38d8a75a4_07.Cooling Not Working', 'ASSET', 'Cooling Not Working','Cooling Not Working','Smart', 'SITE_5678', 'ENTERPRISE_2f34', 20,'inactive',
+'ASSET_565d9d5c-250a-35af-9e79-a6a38d8a75a4_07','3.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_56784HVACASSET_565d9d5c-250a-35af-9e79-a6a38d8a75a4_07Cooling Not Working',
+'ext_propsep_query2': 'SITE_5678_HVAC',
+'ext_propsep_query3': 'SITE_5678_Cooling Not Working',
+'ext_propsep_query4': 'SITE_5678_Cooling Not WorkingCooling Not Working',
+'ext_propsfaultCategory': 'Equipment',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',1485136800000,'201702260100',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_565d9d5c-35af-9e79-a6a38d8a75a4_07.Proving Fan', 'ASSET', 'Proving Fan','Proving Fan','Smart', 'SITE_5678', 'ENTERPRISE_2f34', 20,'inactive',
+'ASSET_565d9d5c-35af-9e79-a6a38d8a75a4_07','3.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_56784HVACASSET_565d9d5c-35af-9e79-a6a38d8a75a4_07Proving Fan',
+'ext_propsep_query2': 'SITE_5678_HVAC',
+'ext_propsep_query3': 'SITE_5678_Proving Fan',
+'ext_propsep_query4': 'SITE_5678_Proving FanProving Fan',
+'ext_propsfaultCategory': 'Equipment',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',1485136800000,'201702260100',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_565d9d5c-250a-35af-9e79-a6a38d8a75a4_07.Cooling Not Working', 'ASSET', 'Cooling Not Working','Cooling Not Working','Smart', 'SITE_5678', 'ENTERPRISE_2f34', 20,'inactive','3.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_56784HVACASSET_565d9d5c-250a-35af-9e79-a6a38d8a75a4_07Cooling Not Working',
+'ext_propsep_query2': 'SITE_5678_HVAC',
+'ext_propsep_query3': 'SITE_5678_HVACCooling Not Working',
+'ext_propsep_query4': '4SITE_5678_HVACCooling Not WorkingCooling Not Working',
+'ext_propsfaultCategory': 'Equipment',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+
+
+
+
+
+
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',1485136800000,ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status,  severity,ext_props)
+VALUES ('20170226AGGREGATION',1485136800000,ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',1485136800000, ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,log_uuid, alert_ts_tz, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',1485136800000,ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status,  severity,ext_props)
+VALUES ('20170226AGGREGATION',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status,  severity,ext_props)
+VALUES ('20170226AGGREGATION',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active','2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active', '2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid, enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active', '2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+
+
+INSERT INTO iepmaster_dev.alert_log (time_bucket,alert_ts, alert_ts_tz, log_uuid, resrc_uid,resrc_type,alert_type,alert_name,category, site_uid,enterprise_uid, duration,status, asset_uid, severity, ext_props)
+VALUES ('20170226AGGREGATION',ef4a05e0-ee7c-11e6-bdbb-35a1bba66798, 'ASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01.Too hot threshold', 'ASSET', 'Too hot threshold','Too hot threshold','Smart', 'SITE_1234', 'ENTERPRISE_2f34', 60','active', '2.0',
+{ 'ext_propsLT': 'HVAC',
+'ext_propsassetName': 'AHU_At_FirstFloor',
+'ext_propsasset_type': 'AHU',
+'ext_propsep_query1': 'SITE_1234HVACASSET_2f5d9d5c-250a-35af-9e79-a6a38d8a75a4_01Too hot threshold',
+'ext_propsep_query2': 'SITE_1234_HVAC',
+'ext_propsep_query3': 'SITE_1234_HVAC',
+'ext_propsfaultCategory': 'Performance',
+'ext_propsfrequency': '60',
+'ext_propstablename': 'events_byminute_stg'
+});
+

@@ -1,0 +1,160 @@
+package com.ge.current.em.rules;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Map;
+import java.lang.Double;
+import java.lang.Math;
+
+import com.ge.current.em.entities.analytics.*;
+import com.ge.current.em.util.TagConstants;
+import com.ge.current.em.util.GeneralUtil;
+import com.ge.current.em.util.RulesUtil;
+import java.util.ArrayList
+import java.util.HashMap;
+
+rule "Cooling does not work"
+dialect "java"
+no-loop true
+when
+$data : RulesBaseFact($assetId: assetId,
+$segmentId: segmentId,
+$enterpriseId: enterpriseId,
+$siteId: siteId,
+$measuresAvgMap: measuresAvgMap,
+$measuresAggrMap: measuresAggrMap,
+$alarmObject: alarmObject,
+$conditionMet: conditionMet,
+$parameters: parameters,
+detectFaultForCoolingDoesNotWork($measuresAvgMap,$measuresAggrMap, $parameters, $alarmObject))
+then
+$alarmObject.setAssetId($assetId);
+$alarmObject.setAlertName(RulesUtil.COOLING_DOES_NOT_WORK);
+$alarmObject.setAlertType(RulesUtil.COOLING_DOES_NOT_WORK);
+$alarmObject.setCategory(RulesUtil.CATEGORY);
+$alarmObject.setFaultCategory(RulesUtil.FAULT_CATEGORY_EQUIPMENT);
+$data.setAlarmObject($alarmObject);
+$data.setConditionMet(true);
+GeneralUtil.log(RulesUtil.COOLING_DOES_NOT_WORK, GeneralUtil.LEVEL_INFO, "Alarm triggered.");
+retract($data);
+end
+
+function boolean detectFaultForCoolingDoesNotWork(Object measuresAvgObject,Object measuresAggrObject, Object parametersObject, Object alarmObject) {
+    String coolingDoesNotWorkRuleName = RulesUtil.COOLING_DOES_NOT_WORK;
+    String minITDKeyName = TagConstants.Parameters.MIN_ITD.getParameterName() + RulesUtil.getFDSINumber(coolingDoesNotWorkRuleName);
+    String runtimeThresholdName = TagConstants.Parameters.RUNTIME_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(coolingDoesNotWorkRuleName);
+    boolean faultDetected = false;
+
+    if(measuresAvgObject == null || measuresAggrObject ==null || parametersObject == null) {
+        return faultDetected;
+    }
+
+    List<Map<String, Object>> measuresAvg = (List<Map<String, Object>>) measuresAvgObject;
+    List<Map<String, Object>> measuresAggr = (List<Map<String, Object>>) measuresAggrObject;
+    String severityKeyName = TagConstants.Parameters.SEVERITY.getParameterName() + RulesUtil.getFDSINumber(RulesUtil.COOLING_DOES_NOT_WORK);
+
+    Map<String,Object> parameters = (Map<String,Object>) parametersObject;
+
+    String ahuCoolStage1OnRunTime = TagConstants.Tags.AHU_COOL_STAGE_1_ON_RUNTIME.getTagName();
+    String rtuCoolStage1OnRunTime = TagConstants.Tags.RTU_COOL_STAGE_1_ON_RUNTIME.getTagName();
+
+   List<String> requiredTags = Arrays.asList(TagConstants.Measures.ZONE_AIR_TEMP_SENSOR.getMeasureName(),
+            minITDKeyName,
+            TagConstants.Tags.DISCHARGE_AIR_TEMP_SENSOR.getTagName());
+    List<String> requiredAnyTags = Arrays.asList(ahuCoolStage1OnRunTime, rtuCoolStage1OnRunTime);
+
+     if(!measuresAvg.isEmpty() && !parameters.isEmpty() && !measuresAggr.isEmpty()){
+          List<String> tagsToBeChecked = new ArrayList<>();
+          tagsToBeChecked.addAll(measuresAvg.get(0).keySet());
+          tagsToBeChecked.addAll(measuresAggr.get(0).keySet());
+          tagsToBeChecked.addAll(parameters.keySet());
+
+          if(!RulesUtil.areAnyTagsValid(coolingDoesNotWorkRuleName, tagsToBeChecked, requiredAnyTags)){
+             return faultDetected;
+          }
+          if(!RulesUtil.areTagsValid(coolingDoesNotWorkRuleName, tagsToBeChecked, requiredTags)) {
+              return faultDetected;
+           }
+      }
+
+    if(parameters.get(minITDKeyName) == null || parameters.get(runtimeThresholdName) == null){
+        GeneralUtil.log(coolingDoesNotWorkRuleName, GeneralUtil.LEVEL_INFO," parameters.get(minITDKeyName) or parameters.get(runtimeThresholdName) is null");
+        return faultDetected;
+    }
+
+    Double minITD = (Double) parameters.get(minITDKeyName);
+
+    Double runtimeThresholdValue = (Double) parameters.get(runtimeThresholdName);
+    GeneralUtil.log(coolingDoesNotWorkRuleName, GeneralUtil.LEVEL_INFO, "Cooling does not work, minITD:" + minITD + "  runtimeThresholdValue: " + runtimeThresholdValue);
+
+    /* checking condition met*/
+    if(getTotalCoolStage1OnRuntime(measuresAggrObject, (Object) ahuCoolStage1OnRunTime) < runtimeThresholdValue &&  getTotalCoolStage1OnRuntime(measuresAggrObject, (Object) rtuCoolStage1OnRunTime) < runtimeThresholdValue ){
+         GeneralUtil.log(coolingDoesNotWorkRuleName, GeneralUtil.LEVEL_WARN, "Condition is not met");
+         return faultDetected;
+    }
+
+    Map<String, Object> results = (Map<String, Object>) getConditionMetObjectCoolingDoesNotWork(measuresAvgObject, (Object) minITD);
+    faultDetected = (boolean) results.get("detectFault");
+
+    if(!faultDetected) {
+        return faultDetected;
+    }
+    String startAlertTime = (String) results.get("startAlert");
+    Double duration  = (Double) results.get("duration");
+    AlarmObject alarm = (AlarmObject) alarmObject;
+    alarm.setDuration(duration);
+    alarm.setTimeOfAlert(startAlertTime);
+    alarm.setFrequency(AlarmObject.FREQUENCY_HOURLY);
+    alarm.setQueryTable(AlarmObject.QUERY_TABLE_BY_MINUTE);
+
+    if (parameters.get(severityKeyName) != null) {
+        alarm.setSeverity((Double) parameters.get(severityKeyName));
+    }
+
+    alarmObject = alarm;
+    return faultDetected;
+}
+
+/* getting the total runtime for eacht tag considered*/
+function Double getTotalCoolStage1OnRuntime(Object measuresAggrMapObject, Object hvacStatusOnRuntimeTagName){
+      List<Map<String, Object>> measures = (List<Map<String, Object>>) measuresAggrMapObject;
+      String hvacStatusOnRuntimeTag = (String) hvacStatusOnRuntimeTagName;
+      Double hvacStatusOnRuntimeSum = measures.stream().filter(m -> m.get(hvacStatusOnRuntimeTag) != null)
+                                                             .mapToDouble(s -> (Double) s.get(hvacStatusOnRuntimeTag)).sum()/60;
+     GeneralUtil.log("hvacStatusOnRuntimeTag" + hvacStatusOnRuntimeSum);
+     return  hvacStatusOnRuntimeSum;
+}
+
+function Object getConditionMetObjectCoolingDoesNotWork(Object measuresAvgMapObject, Object minItdValue){
+
+    Map<String, Object> result = new HashMap<>();
+    String startAlert = null;
+    boolean detectFault = false;
+    double minItd = (double) minItdValue;
+    List<Map<String, Object>> measures = (List<Map<String, Object>>) measuresAvgMapObject;
+    String zoneAirTempSensor = TagConstants.Measures.ZONE_AIR_TEMP_SENSOR.getMeasureName();
+    String dischargeAirTempSensor = TagConstants.Tags.DISCHARGE_AIR_TEMP_SENSOR.getTagName();
+    Double duration = 0.0;
+
+    for (Map<String, Object> currentMapMeasure: measures){
+        if (currentMapMeasure.get(zoneAirTempSensor) != null && currentMapMeasure.get(dischargeAirTempSensor) != null){
+            Double itd = (Double) currentMapMeasure.get(zoneAirTempSensor) - (Double) currentMapMeasure.get(dischargeAirTempSensor);
+            if (itd > minItd) {
+              detectFault = true;
+              if (currentMapMeasure.get(TagConstants.Measures.EVENT_TS.getMeasureName()) != null && startAlert == null) {
+                   startAlert = currentMapMeasure.get(TagConstants.Measures.EVENT_TS.getMeasureName()).toString();
+              }
+                  duration += 15.00;
+            }
+
+        }
+    }
+
+    result.put("detectFault", detectFault);
+    result.put("startAlert", startAlert);
+    result.put("duration", duration);
+    GeneralUtil.log(RulesUtil.COOLING_DOES_NOT_WORK, GeneralUtil.LEVEL_INFO, "detectFault: " + detectFault +  " duration: " + duration + " minItd: " + minItd + " Start Alert time: " + startAlert);
+    return (Object) result;
+
+  }

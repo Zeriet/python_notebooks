@@ -1,0 +1,121 @@
+package com.ge.current.em.rules;
+
+import java.lang.Double;
+import java.lang.Math;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import com.ge.current.em.entities.analytics.*;
+import com.ge.current.em.util.TagConstants;
+import com.ge.current.em.util.GeneralUtil;
+import com.ge.current.em.util.RulesUtil
+import java.util.HashMap
+
+rule "Excessive HVAC Overrides - Count"
+dialect "java"
+no-loop true
+when
+$data : RulesBaseFact($assetId: assetId,
+$measuresAggrMap: measuresAggrMap,
+$segmentId: segmentId,
+$enterpriseId: enterpriseId,
+$siteId: siteId,
+$alarmObject: alarmObject,
+$conditionMet: conditionMet,
+$parameters: parameters,
+detectFaultForExcessiveHVACOverridesCount($measuresAggrMap, $parameters, $alarmObject))
+then
+$alarmObject.setAssetId($assetId);
+$alarmObject.setAlertName(RulesUtil.EXCESSIVE_HVAC_OVERRIDES_COUNT);
+$alarmObject.setAlertType(RulesUtil.EXCESSIVE_HVAC_OVERRIDES_COUNT);
+$alarmObject.setCategory(RulesUtil.CATEGORY);
+$alarmObject.setFaultCategory(RulesUtil.FAULT_CATEGORY_VIOLATION);
+$data.setAlarmObject($alarmObject);
+$data.setConditionMet(true);
+GeneralUtil.log(RulesUtil.EXCESSIVE_HVAC_OVERRIDES_COUNT, GeneralUtil.LEVEL_INFO, "Alarm triggered.");
+end
+
+function boolean detectFaultForExcessiveHVACOverridesCount(Object measuresAggObject , Object parametersObject, Object alarmObject) {
+    boolean faultDetected = false;
+    if(measuresAggObject == null || parametersObject == null) {
+        return faultDetected;
+    }
+
+   List<Map<String, Object>> measuresAgg = (List<Map<String, Object>>) measuresAggObject;
+   Map<String, Object> parameters = (Map<String, Object>) parametersObject;
+   String hvacStateOverrideTagName = TagConstants.Tags.HVAC_STATE_OVERRIDE.getTagName();
+   String excessiveHvacOverridesCount = RulesUtil.EXCESSIVE_HVAC_OVERRIDES_COUNT;
+   List<String> requiredTags = Arrays.asList(hvacStateOverrideTagName, TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveHvacOverridesCount));
+     if(!measuresAgg.isEmpty() && !parameters.isEmpty()){
+          List<String> tagsToBeChecked = new ArrayList<>();
+          tagsToBeChecked.addAll(measuresAgg.get(0).keySet());
+          tagsToBeChecked.addAll(parameters.keySet());
+          if(!RulesUtil.areTagsValid(excessiveHvacOverridesCount, tagsToBeChecked, requiredTags)) {
+              GeneralUtil.log(excessiveHvacOverridesCount, GeneralUtil.LEVEL_INFO, "Tags are not valid.");
+              return faultDetected;
+           }
+      } else {
+          GeneralUtil.log(excessiveHvacOverridesCount, GeneralUtil.LEVEL_WARN, "One or more of these is empty: measures, tags, or parameters");
+          return faultDetected;
+      }
+
+    if(parameters.get(TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveHvacOverridesCount)) == null){
+        GeneralUtil.log(excessiveHvacOverridesCount, GeneralUtil.LEVEL_INFO,"  userThreshold is null");
+        return faultDetected;
+    }
+    Double userThreshold = (Double) parameters.get(TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveHvacOverridesCount));
+
+    Map<String, Object> results = (Map<String, Object>) getResultHvacStateOverrideCounts(measuresAggObject, (Object) userThreshold);
+    faultDetected = (boolean) results.get("detectFault");
+
+    if(!faultDetected) {
+        return faultDetected;
+    }
+    String startAlertTime = (String) results.get("startAlert");
+    Double duration  = (Double) results.get("duration");
+    AlarmObject alarm = (AlarmObject) alarmObject;
+    String severityKeyName = TagConstants.Parameters.SEVERITY.getParameterName() + RulesUtil.getFDSINumber(excessiveHvacOverridesCount);
+    if (parameters.get(severityKeyName) != null) {
+        alarm.setSeverity((Double) parameters.get(severityKeyName));
+    }
+    alarm.setDuration(duration);
+    alarm.setTimeOfAlert(startAlertTime);
+    alarm.setFrequency(AlarmObject.FREQUENCY_DAILY);
+    alarm.setQueryTable(AlarmObject.QUERY_TABLE_BY_MINUTE);
+    alarmObject = alarm;
+    return faultDetected;
+}
+
+function Object getResultHvacStateOverrideCounts(Object measuresAggMapObject, Object threshold){
+
+    Map<String, Object> result = new HashMap<>();
+    String startAlert = null;
+    boolean detectFault = false;
+    double timeThreshold = (double) threshold;
+    List<Map<String, Object>> measuresAggMap = (List<Map<String, Object>>) measuresAggMapObject;
+    String hvacStateOverrideCount = TagConstants.Tags.HVAC_STATE_OVERRIDE.getTagName();
+    Double totalHvacStateOverrideCounts = 0.0;
+    Double sumHvacStateOverrideCountsTime = 0.0;
+    for (Map<String, Object> currentMeasuresMap: measuresAggMap){
+        if (currentMeasuresMap.get(hvacStateOverrideCount) != null){
+            totalHvacStateOverrideCounts += (Double) currentMeasuresMap.get(hvacStateOverrideCount);
+            if (totalHvacStateOverrideCounts > timeThreshold){
+                sumHvacStateOverrideCountsTime += 15.0;
+                detectFault = true;
+                if(startAlert == null){
+                  startAlert = currentMeasuresMap.get(TagConstants.Measures.EVENT_TS.getMeasureName()).toString();
+                 }
+             }
+        }
+    }
+    result.put("detectFault", detectFault);
+    result.put("startAlert", startAlert);
+    result.put("duration", sumHvacStateOverrideCountsTime);
+    GeneralUtil.log(RulesUtil.EXCESSIVE_HVAC_OVERRIDES_COUNT, GeneralUtil.LEVEL_INFO, "sumHvacStateOverrideTimeCounts: " + sumHvacStateOverrideCountsTime + " userThreshold " + timeThreshold + "Start Alert time" + startAlert);
+    return (Object) result;
+
+}
+

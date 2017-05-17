@@ -1,0 +1,134 @@
+package com.ge.current.em.rules;
+
+import java.lang.Double;
+import java.lang.Math;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import com.ge.current.em.entities.analytics.*;
+import com.ge.current.em.util.TagConstants;
+import com.ge.current.em.util.GeneralUtil;
+import com.ge.current.em.util.RulesUtil
+import java.util.HashMap
+
+rule "Excessive Lighting Overrides - Count"
+dialect "java"
+no-loop true
+when
+$data : RulesBaseFact($assetId: assetId,
+$measuresAggrMap: measuresAggrMap,
+$segmentId: segmentId,
+$enterpriseId: enterpriseId,
+$siteId: siteId,
+$alarmObject: alarmObject,
+$conditionMet: conditionMet,
+$parameters: parameters,
+detectFaultForExcessiveLightingOverridesCount($measuresAggrMap, $parameters, $alarmObject))
+then
+$alarmObject.setAssetId($assetId);
+$alarmObject.setAlertName(RulesUtil.EXCESSIVE_LIGHTING_OVERRIDES_COUNT);
+$alarmObject.setAlertType(RulesUtil.EXCESSIVE_LIGHTING_OVERRIDES_COUNT);
+$alarmObject.setCategory(RulesUtil.CATEGORY);
+$alarmObject.setFaultCategory(RulesUtil.FAULT_CATEGORY_VIOLATION);
+$data.setAlarmObject($alarmObject);
+$data.setConditionMet(true);
+GeneralUtil.log(RulesUtil.EXCESSIVE_LIGHTING_OVERRIDES_COUNT, GeneralUtil.LEVEL_INFO, "Alarm triggered.");
+end
+
+function boolean detectFaultForExcessiveLightingOverridesCount(Object measuresAggrMapObj, Object parametersObject, Object alarmObject) {
+    boolean faultDetected = false;
+    if(measuresAggrMapObj == null || parametersObject == null) {
+        return faultDetected;
+    }
+
+    List<Map<String, Object>> measuresAgg = (List<Map<String, Object>>) measuresAggrMapObj;
+    Map<String, Object> parameters = (Map<String, Object>) parametersObject;
+    String lightingStateOverrideTagName = TagConstants.Tags.LIGHTING_STATE_OVERRIDE.getTagName();
+    String excessiveLightingOverridesCount = RulesUtil.EXCESSIVE_LIGHTING_OVERRIDES_COUNT;
+
+   List<String> requiredTags = Arrays.asList(lightingStateOverrideTagName, TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveLightingOverridesCount));
+     if(!measuresAgg.isEmpty() && !parameters.isEmpty()){
+          List<String> tagsToBeChecked = new ArrayList<>();
+          tagsToBeChecked.addAll(measuresAgg.get(0).keySet());
+          tagsToBeChecked.addAll(parameters.keySet());
+          if(!RulesUtil.areTagsValid(excessiveLightingOverridesCount, tagsToBeChecked, requiredTags)) {
+              GeneralUtil.log(excessiveLightingOverridesCount, GeneralUtil.LEVEL_INFO, "Tags are not valid.");
+              return faultDetected;
+           }
+      } else {
+          GeneralUtil.log(excessiveLightingOverridesCount, GeneralUtil.LEVEL_WARN, "One or more of these is empty: measuresAgg, or parameters");
+          return faultDetected;
+      }
+
+    Object userThr = parameters.get(TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveLightingOverridesCount));
+    if(userThr == null){
+        GeneralUtil.log(excessiveLightingOverridesCount, GeneralUtil.LEVEL_INFO, "userThreshold is null");
+        return faultDetected;
+    }
+
+     Double userThreshold = (Double) parameters.get(TagConstants.Parameters.USER_THRESHOLD.getParameterName() + RulesUtil.getFDSINumber(excessiveLightingOverridesCount));
+
+    Map<String, Object> results = (Map<String, Object>) getResultLightingStateOverrideCounts(measuresAggrMapObj, (Object) userThreshold);
+    faultDetected = (boolean) results.get("detectFault");
+
+    if(!faultDetected) {
+        return faultDetected;
+    }
+
+    String startAlertTime = (String) results.get("startAlert");
+    Double duration  = (Double) results.get("duration");
+    AlarmObject alarm = (AlarmObject) alarmObject;
+    String severityKeyName = TagConstants.Parameters.SEVERITY.getParameterName() + RulesUtil.getFDSINumber(excessiveLightingOverridesCount);
+    if (parameters.get(severityKeyName) != null) {
+        alarm.setSeverity((Double) parameters.get(severityKeyName));
+    }    alarm.setDuration(duration);
+    alarm.setTimeOfAlert(startAlertTime);
+    alarm.setFrequency(AlarmObject.FREQUENCY_DAILY);
+    alarm.setQueryTable(AlarmObject.QUERY_TABLE_BY_MINUTE);
+    alarmObject = alarm;
+
+    return faultDetected;
+}
+
+function Double getLightingStateOverrideCounts(Object tagsObject){
+        List<Map<String, Object>> tags = (List<Map<String, Object>>) tagsObject;
+        String lightingStateOverrideTagName = TagConstants.Tags.LIGHTING_STATE_OVERRIDE.getTagName();
+        
+         Double totalLightingStateOverrideCounts = (Double) tags.stream().filter( m -> m.get(lightingStateOverrideTagName) != null).
+        mapToDouble(s -> (Double) s.get(lightingStateOverrideTagName)).sum();
+        
+        return  totalLightingStateOverrideCounts;
+}
+
+function Object getResultLightingStateOverrideCounts(Object measuresAggMapObject, Object threshold){
+
+    Map<String, Object> result = new HashMap<>();
+    String startAlert = null;
+    boolean detectFault = false;
+    double timeThreshold = (double) threshold;
+    List<Map<String, Object>> measuresAgg = (List<Map<String, Object>>) measuresAggMapObject;
+    String lightingStateOverrideTagName = TagConstants.Tags.LIGHTING_STATE_OVERRIDE.getTagName();
+    Double totalLightingStateOverrideCounts = 0.0;
+    Double sumLightingStateOverrideCountsTime = 0.0;
+    for (Map<String, Object> currentMeasuresMap: measuresAgg){
+        if (currentMeasuresMap.get(lightingStateOverrideTagName) != null){
+            totalLightingStateOverrideCounts += (Double) currentMeasuresMap.get(lightingStateOverrideTagName);
+            if (totalLightingStateOverrideCounts > timeThreshold){
+                sumLightingStateOverrideCountsTime += 15.0;
+                detectFault = true;
+                if(startAlert == null){
+                  startAlert = currentMeasuresMap.get(TagConstants.Measures.EVENT_TS.getMeasureName()).toString();
+                 }
+             }
+        }
+    }
+    result.put("detectFault", detectFault);
+    result.put("startAlert", startAlert);
+    result.put("duration", sumLightingStateOverrideCountsTime);
+    GeneralUtil.log(RulesUtil.EXCESSIVE_LIGHTING_OVERRIDES_COUNT, GeneralUtil.LEVEL_INFO, "sumLightingStateOverrideCountsTime: " + sumLightingStateOverrideCountsTime + " userThreshold " + timeThreshold + "Start Alert time" + startAlert);
+    return (Object) result;
+
+}
